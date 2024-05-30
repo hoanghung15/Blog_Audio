@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Audio Files</title>
+    <style>
+      .audioContainer {
+        display: flex;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+      .waveformContainer {
+        width: 60%;
+      }
+    </style>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="firebaseConfig.js"></script>
+    <script src="list.js"></script>
+  </head>
+  <body>
+    <h1>Audio Files from Firebase Storage</h1>
+    <input type="text" id="folderName" placeholder="Enter folder name" />
+    <button id="fetchFilesButton">Fetch Audio Files</button>
+    <div id="fileList"></div>
+  </body>
+</html>

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css" />
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="firebaseConfig.js"></script>
+    <script src="scripts.js"></script>
+    <script src="nhacTre.js"></script>
+    <style>
+      .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-[#FAFAFA]">
+    <div class="w-full h-[80px] bg-[#262626] p-[40px] block">
+      <p class="text-white">My Blog Audio</p>
+    </div>
+    <div class="w-full h-[40px] bg-[#F5F5F5]">
+      <div
+        class="flex items-center px-[40px] text-[14px] font-semibold text-[#666666]"
+      >
+        <p class="mt-[10px]">Music</p>
+        <p class="mt-[10px] ml-[40px]">Music Packs</p>
+        <p class="mt-[10px] ml-[40px]">Music Kits</p>
+      </div>
+    </div>
+    <div class="w-full h-[30%] bg-white px-[40px] shadow-lg">
+      <div>
+        <h6 class="font-semibold text-[#333333] pt-[18px]">Home</h6>
+        <h1 class="pt-[0px] font-bold text-[28px] text-[#333333]">
+          Download The Music You Love And Share Your Albums
+        </h1>
+      </div>
+    </div>
+
+    <div class="w-full h-[370px] mt-[40px] flex items-center justify-center">
+      <div class="w-[90%] h-full bg-white px-[40px] pt-[10px]">
+        <div class="flex font-bold text-[20px] text-[#B3B3B3]">
+          <span>Genre</span>
+          <span class="ml-[40px]">Mood</span>
+        </div>
+        <div class="w-full h-[1px] bg-[#E6E6E6] mt-2"></div>
+        <div class="flex text-[#666666]">
+          <div class="w-[40%] h-full mt-[20px]">
+            <p class="text-[20px]">Nhạc trẻ</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc thiếu nhi</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc Tây Nguyên</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc Kháng chiến</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+          </div>
+          <div class="w-[40%] h-full mt-[20px] ml-[59px]">
+            <p class="text-[20px]">Nhạc trẻ</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc thiếu nhi</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc Tây Nguyên</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+            <p class="text-[20px] mt-[20px]">Nhạc Kháng chiến</p>
+            <div class="w-full h-[1px] bg-[#E6E6E6] mt-[20px]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content here -->
+    <div
+      id="scroll-container"
+      class="relative w-full h-[300px] bg-[#E6E6E6] flex mt-[20px] items-center"
+    >
+      <div
+        class="w-[24%] h-full px-[40px] pt-[20px] flex justify-center items-center"
+      >
+        <div class="text-center">
+          <p class="font-bold text-[24px] text-[#333333]">
+            Các bản nhạc âm thanh miễn phí - giảm giá
+          </p>
+          <button
+            class="mt-[20px] w-[200px] rounded-[50px] text-white font-semibold h-[40px] bg-[#6CA329]"
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
+      <!-- processing -->
+      <!-- div1 -->
+      <div class="w-[24%] h-[90%] bg-white relative hover-effect">
+        <!-- tag -->
+        <div class="absolute">
+          <img src="img/tag.png" alt="" class="" />
+        </div>
+        <!-- content here -->
+        <div class="w-full h-[30%] flex mt-[20px]">
+          <!-- img -->
+          <div class="ml-[5px] w-[20%] h-full bg-white">
+            <div class="p-[7px]" id="imageContainer1"></div>
+          </div>
+          <!-- pause -->
+          <div class="w-[20%] h-full">
+            <div class="p-[15px]">
+              <img
+                id="playButton1"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <!-- music -->
+          <div class="w-[50%] h-full">
+            <div class="mt-[15px]" id="audioContainer1">
+              <div class="h-full" id="waveform1"></div>
+            </div>
+          </div>
+        </div>
+        <!--download  -->
+        <div class="w-full h-[10%] flex">
+          <div class="ml-[40px] w-[50%] h-full text-[14px] text-[#A6A6A6]">
+            <div class="">
+              <span
+                >Time:
+                <span class="font-bold text-black" id="timeContainer1"> </span
+              ></span>
+              <span class="ml-[40px]"
+                >BMS: <span class="font-bold text-black">16</span></span
+              >
+            </div>
+          </div>
+          <!-- button -->
+          <div class="ml-[20px] w-[30%] h-full flex">
+            <div class="">
+              <img
+                id="downloadButton1"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <!-- fileName -->
+        <div class="w-full px-[20px] mt-[20px]">
+          <p id="fileName1" class="text-[14px] font-bold"></p>
+        </div>
+        <!-- author -->
+        <div class="w-full h-[10%] flex">
+          <div class="px-[20px] w-full">
+            <span class="text-[14px] italic text-[#A6A6A6]">by</span>
+            <span
+              class="ml-[10px] font-semibold text-[14px] text-[#A6A6A6]"
+              id="nameAuthor1"
+            ></span>
+          </div>
+        </div>
+        <!-- cart -->
+        <div class="px-[20px] mt-[7px] h-[10%]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+          <div class="flex font-bold text-[#6CA12B] mt-[20px]">
+            <div class="w-[50%]">
+              <span class="">$</span>
+              <span class="" id="priceContainer1"></span>
+            </div>
+            <div class="w-[50%] h-full flex items-center">
+              <img
+                src="img/shoping.png"
+                alt=""
+                class="ml-[120px] cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- div2 -->
+      <div class="ml-[20px] w-[24%] h-[90%] bg-white relative hover-effect">
+        <!-- tag -->
+        <div class="absolute">
+          <img src="img/tag.png" alt="" class="" />
+        </div>
+        <!-- content here -->
+        <div class="w-full h-[30%] flex mt-[20px]">
+          <!-- img -->
+          <div class="ml-[5px] w-[20%] h-full bg-white">
+            <div class="p-[7px]" id="imageContainer2"></div>
+          </div>
+          <!-- pause -->
+          <div class="w-[20%] h-full">
+            <div class="p-[15px]">
+              <img
+                id="playButton2"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <!-- music -->
+          <div class="w-[50%] h-full">
+            <div class="mt-[15px]" id="audioContainer2">
+              <div class="h-full" id="waveform2"></div>
+            </div>
+          </div>
+        </div>
+        <!--download  -->
+        <div class="w-full h-[10%] flex">
+          <div class="ml-[40px] w-[50%] h-full text-[14px] text-[#A6A6A6]">
+            <div class="">
+              <span
+                >Time:
+                <span class="font-bold text-black" id="timeContainer2"></span
+              ></span>
+              <span class="ml-[40px]"
+                >BMS: <span class="font-bold text-black">16</span></span
+              >
+            </div>
+          </div>
+          <!-- button -->
+          <div class="ml-[20px] w-[30%] h-full flex">
+            <div class="">
+              <img
+                id="downloadButton2"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <!-- fileName -->
+        <div class="w-full px-[20px] mt-[20px]">
+          <p id="fileName2" class="text-[14px] font-bold"></p>
+        </div>
+        <!-- author -->
+        <div class="w-full h-[10%] flex">
+          <div class="px-[20px] w-full">
+            <span class="text-[14px] italic text-[#A6A6A6]">by</span>
+            <span
+              class="ml-[10px] font-semibold text-[14px] text-[#A6A6A6]"
+              id="nameAuthor2"
+            ></span>
+          </div>
+        </div>
+        <!-- cart -->
+        <div class="px-[20px] mt-[7px] h-[10%]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+          <div class="flex font-bold text-[#6CA12B] mt-[20px]">
+            <div class="w-[50%]">
+              <span class="">$</span>
+              <span class="" id="priceContainer2"></span>
+            </div>
+            <div class="w-[50%] h-full flex items-center">
+              <img
+                src="img/shoping.png"
+                alt=""
+                class="ml-[120px] cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- div3 -->
+      <div class="ml-[20px] w-[24%] h-[90%] bg-white relative hover-effect">
+        <!-- tag -->
+        <div class="absolute">
+          <img src="img/tag.png" alt="" class="" />
+        </div>
+        <!-- content here -->
+        <div class="w-full h-[30%] flex mt-[20px]">
+          <!-- img -->
+          <div class="ml-[5px] w-[20%] h-full bg-white">
+            <div class="p-[7px]" id="imageContainer3"></div>
+          </div>
+          <!-- pause -->
+          <div class="w-[20%] h-full">
+            <div class="p-[15px]">
+              <img
+                id="playButton3"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <!-- music -->
+          <div class="w-[50%] h-full">
+            <div class="mt-[15px]" id="audioContainer3">
+              <div class="h-full" id="waveform3"></div>
+            </div>
+          </div>
+        </div>
+        <!--download  -->
+        <div class="w-full h-[10%] flex">
+          <div class="ml-[40px] w-[50%] h-full text-[14px] text-[#A6A6A6]">
+            <div class="">
+              <span
+                >Time:
+                <span class="font-bold text-black" id="timeContainer3"></span
+              ></span>
+              <span class="ml-[40px]"
+                >BMS: <span class="font-bold text-black">16</span></span
+              >
+            </div>
+          </div>
+          <!-- button -->
+          <div class="ml-[20px] w-[30%] h-full flex">
+            <div class="">
+              <img
+                id="downloadButton3"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <!-- fileName -->
+        <div class="w-full px-[20px] mt-[20px]">
+          <p id="fileName3" class="text-[14px] font-bold"></p>
+        </div>
+        <!-- author -->
+        <div class="w-full h-[10%] flex">
+          <div class="px-[20px] w-full">
+            <span class="text-[14px] italic text-[#A6A6A6]">by</span>
+            <span
+              class="ml-[10px] font-semibold text-[14px] text-[#A6A6A6]"
+              id="nameAuthor3"
+            ></span>
+          </div>
+        </div>
+        <!-- cart -->
+        <div class="px-[20px] mt-[7px] h-[10%]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+          <div class="flex font-bold text-[#6CA12B] mt-[20px]">
+            <div class="w-[50%]">
+              <span class="">$</span>
+              <span class="" id="priceContainer3"></span>
+            </div>
+            <div class="w-[50%] h-full flex items-center">
+              <img
+                src="img/shoping.png"
+                alt=""
+                class="ml-[120px] cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- test -->
+    <div class="w-full mt-[20px]">
+      <div class="px-[60px] flex justify-between items-center">
+        <h1 class="font-bold">Nhạc trẻ</h1>
+        <button
+          onclick="location.href='detail.html'"
+          class="w-[100px] h-[40px] font-bold text-[14px] text-white bg-[#6CA329]"
+        >
+          View All
+        </button>
+      </div>
+    </div>
+    <div class="w-full h-[270px] px-[60px] flex justify-between mt-[20px]">
+      <div class="w-[320px] h-[220px] shadow-lg bg-white hover-effect">
+        <div class="w-full h-[25%] mt-[10px] px-[20px] flex justify-between it">
+          <div class="w-[20%] h-full" id="ntimageContainer1"></div>
+          <div class="w-[20%] h-full">
+            <div class="p-[10px]">
+              <img
+                id="ntplayButton1"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <div class="w-[60%]" id="ntaudioContainer1">
+            <div class="mt-[5px] w-[60%%]" id="ntwaveform1"></div>
+          </div>
+        </div>
+        <div class="w-full h-[15%] flex mt-[10px]">
+          <div class="w-[60%] h-full px-[20px] text-[14px] flex items-center">
+            <span class="ml-[10px]">
+              Time:
+              <span class="font-bold text-black" id="nttimeContainer1"></span>
+            </span>
+            <span class="ml-[25px]"
+              >BMS: <span class="font-bold text-black">16</span></span
+            >
+          </div>
+          <div class="ml-[20px] w-[30%] h-full flex items-center">
+            <div class="">
+              <img
+                id="ntdownloadButton1"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <div class="px-[20px] mt-[10px] w-full h-[10%]">
+          <p class="font-bold text-[14px]" id="ntfileName1"></p>
+        </div>
+        <div class="px-[20px] w-full h-[10%]">
+          <span class="italic text-[14px]">by </span>
+          <span
+            class="ml-[10px] font-bold text-[14px] text-[#A6A6A6]"
+            id="ntnameAuthor1"
+          ></span>
+        </div>
+        <div class="px-[20px]">
+          <div class="w-full mt-[5px] h-[1px] bg-[#A6A6A6]"></div>
+        </div>
+        <div
+          class="px-[20px] text-[#6CA329] mt-[10px] font-bold flex justify-between"
+        >
+          <div class="flex items-center">
+            <span class="">$ </span>
+            <span class="" id="ntpriceContainer1"></span>
+          </div>
+          <div class="">
+            <img src="img/shoping.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="w-[320px] h-[220px] shadow-lg bg-white hover-effect">
+        <div class="w-full h-[25%] mt-[10px] px-[20px] flex justify-between it">
+          <div class="w-[20%] h-full" id="ntimageContainer2"></div>
+          <div class="w-[20%] h-full">
+            <div class="p-[10px]">
+              <img
+                id="ntplayButton2"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <div class="w-[60%]" id="ntaudioContainer2">
+            <div class="mt-[5px] w-[60%%]" id="ntwaveform2"></div>
+          </div>
+        </div>
+        <div class="w-full h-[15%] flex mt-[10px]">
+          <div class="w-[60%] h-full px-[20px] text-[14px] flex items-center">
+            <span class="ml-[10px]">
+              Time:
+              <span class="font-bold text-black" id="nttimeContainer2"></span>
+            </span>
+            <span class="ml-[25px]"
+              >BMS: <span class="font-bold text-black">16</span></span
+            >
+          </div>
+          <div class="ml-[20px] w-[30%] h-full flex items-center">
+            <div class="">
+              <img
+                id="ntdownloadButton2"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <div class="px-[20px] mt-[10px] w-full h-[10%]">
+          <p class="font-bold text-[14px]" id="ntfileName2"></p>
+        </div>
+        <div class="px-[20px] w-full h-[10%]">
+          <span class="italic text-[14px]">by </span>
+          <span
+            class="ml-[10px] font-bold text-[12px] text-[#A6A6A6]"
+            id="ntnameAuthor2"
+          ></span>
+        </div>
+        <div class="px-[20px] mt-[5px]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+        </div>
+        <div
+          class="px-[20px] text-[#6CA329] mt-[10px] font-bold flex justify-between"
+        >
+          <div class="flex items-center">
+            <span class="">$ </span>
+            <span class="" id="ntpriceContainer2"></span>
+          </div>
+          <div class="">
+            <img src="img/shoping.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="w-[320px] h-[220px] shadow-lg bg-white hover-effect">
+        <div class="w-full h-[25%] mt-[10px] px-[20px] flex justify-between it">
+          <div class="w-[20%] h-full" id="ntimageContainer3"></div>
+          <div class="w-[20%] h-full">
+            <div class="p-[10px]">
+              <img
+                id="ntplayButton3"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <div class="w-[60%]" id="ntaudioContainer3">
+            <div class="mt-[5px] w-[60%%]" id="ntwaveform3"></div>
+          </div>
+        </div>
+        <div class="w-full h-[15%] flex mt-[10px]">
+          <div class="w-[60%] h-full px-[20px] text-[14px] flex items-center">
+            <span class="ml-[10px]">
+              Time:
+              <span class="font-bold text-black" id="nttimeContainer3"></span>
+            </span>
+            <span class="ml-[25px]"
+              >BMS: <span class="font-bold text-black">16</span></span
+            >
+          </div>
+          <div class="ml-[20px] w-[30%] h-full flex items-center">
+            <div class="">
+              <img
+                id="ntdownloadButton3"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <div class="px-[20px] mt-[10px] w-full h-[10%]">
+          <p class="font-bold text-[14px]" id="ntfileName3"></p>
+        </div>
+        <div class="px-[20px] w-full h-[10%]">
+          <span class="italic text-[14px]">by </span>
+          <span
+            class="ml-[10px] font-bold text-[12px] text-[#A6A6A6]"
+            id="ntnameAuthor3"
+          ></span>
+        </div>
+        <div class="px-[20px] mt-[5px]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+        </div>
+        <div
+          class="px-[20px] text-[#6CA329] mt-[10px] font-bold flex justify-between"
+        >
+          <div class="flex items-center">
+            <span class="">$ </span>
+            <span class="" id="ntpriceContainer3"></span>
+          </div>
+          <div class="">
+            <img src="img/shoping.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="w-[320px] h-[220px] shadow-lg bg-white hover-effect">
+        <div class="w-full h-[25%] mt-[10px] px-[20px] flex justify-between it">
+          <div class="w-[20%] h-full" id="ntimageContainer4"></div>
+          <div class="w-[20%] h-full">
+            <div class="p-[10px]">
+              <img
+                id="ntplayButton4"
+                src="img/octicon_play-16.png"
+                alt=""
+                class=""
+              />
+            </div>
+          </div>
+          <div class="w-[60%]" id="ntaudioContainer4">
+            <div class="mt-[5px] w-[60%%]" id="ntwaveform4"></div>
+          </div>
+        </div>
+        <div class="w-full h-[15%] flex mt-[10px]">
+          <div class="w-[60%] h-full px-[20px] text-[14px] flex items-center">
+            <span class="ml-[10px]">
+              Time:
+              <span class="font-bold text-black" id="nttimeContainer4"></span>
+            </span>
+            <span class="ml-[25px]"
+              >BMS: <span class="font-bold text-black">16</span></span
+            >
+          </div>
+          <div class="ml-[20px] w-[30%] h-full flex items-center">
+            <div class="">
+              <img
+                id="ntdownloadButton4"
+                src="img/download.png"
+                alt=""
+                class="cursor-pointer"
+              />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/addList.png" alt="" class="cursor-pointer" />
+            </div>
+            <div class="ml-[10px] w-[1px] h-full bg-[#A6A6A6]"></div>
+            <div class="flex items-center ml-[10px]">
+              <img src="img/tim.png" alt="" class="cursor-pointer" />
+            </div>
+          </div>
+        </div>
+        <div class="px-[20px] mt-[10px] w-full h-[10%]">
+          <p class="font-bold text-[14px]" id="ntfileName4"></p>
+        </div>
+        <div class="px-[20px] w-full h-[10%]">
+          <span class="italic text-[14px]">by </span>
+          <span
+            class="ml-[10px] font-bold text-[12px] text-[#A6A6A6]"
+            id="ntnameAuthor4"
+          ></span>
+        </div>
+        <div class="px-[20px] mt-[5px]">
+          <div class="w-full h-[1px] bg-[#A6A6A6]"></div>
+        </div>
+        <div
+          class="px-[20px] text-[#6CA329] mt-[10px] font-bold flex justify-between"
+        >
+          <div class="flex items-center">
+            <span class="">$ </span>
+            <span class="" id="ntpriceContainer4"></span>
+          </div>
+          <div class="">
+            <img src="img/shoping.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-[300px] bg-[#FAFAFA]">
+      <div class="px-[60px] w-full h-[100px] flex justify-between">
+        <!-- view collection -->
+        <div
+          onclick="location.href='viewCollection.html'"
+          class="flex w-[680px] hover-effect bg-[#1A1A1A] h-[150px] shadow-lg cursor-pointer"
+        >
+          <div
+            class="w-[30%] h-[full] p-[20px] justify-center items-center flex"
+          >
+            <img class="scale-[70%]" src="img/best.svg" alt="" />
+          </div>
+          <div
+            onclick="location.href='viewCollection.html'"
+            class="w-[70%] h-full items-center flex"
+          >
+            <p class="text-white font-bold text-[28px]">
+              Xem bộ sưu tập của bạn <br /><span
+                class="text-[16px] font-semibold text-[#8C8C8C]"
+                >Xem ngay</span
+              >
+            </p>
+          </div>
+        </div>
+        <!-- add collection -->
+        <div
+          class="flex w-[680px] hover-effect bg-white h-[150px] shadow-lg cursor-pointer"
+        >
+          <div
+            class="w-[30%] h-[full] p-[20px] justify-center items-center flex"
+          >
+            <img
+              class="scale-[70%]"
+              src="https://assets.market-storefront.envato-static.com/storefront/assets/icons/category/hot-802a2eb8c680576873574b76ebe2d89f241173800fa4226499a2c30ab3a04a20.svg"
+              alt=""
+            />
+          </div>
+          <div
+            class="w-[70%] h-full items-center flex"
+            onclick="location.href='creatCollection.html'"
+          >
+            <p class="font-bold text-[28px]">
+              Thêm bộ sưu tập của bạn <br /><span
+                class="text-[16px] font-semibold text-[#8C8C8C]"
+                >Thêm ngay</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
